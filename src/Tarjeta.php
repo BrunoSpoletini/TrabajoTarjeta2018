@@ -36,8 +36,10 @@ class Tarjeta implements TarjetaInterface {
             $this->saldo += 1184.17;
             break;
         default:
+        //Devuelve false si el monto ingresado no es válido
             return false;
     }
+    // Devuelve true si el monto ingresado es válido
       return true;
     }
 
