@@ -56,11 +56,11 @@ class Colectivo implements ColectivoInterface {
         $valorb = 14.80;
         if($tarjeta->obtenerSaldo() < $valorb){
             return FALSE;
-        } else {
-            //$tarjeta->saldo -= $valorb;
-            $boleto = new Boleto ($valorb, $this, $tarjeta);
-            return $boleto;
         }
+        $tarjeta->restarSaldo($valorb);
+        $boleto = new Boleto ($valorb, $this, $tarjeta);
+        return $boleto;
+        
     }
 
 }

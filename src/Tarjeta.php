@@ -7,6 +7,7 @@ class Tarjeta implements TarjetaInterface {
     protected $saldo;
 
 /*/
+    Funcion para recargar la tarjeta
     Las cargas aceptadas de tarjetas son: (10, 20, 30, 50, 100, 510,15 y 962,59)
     Cuando se cargan $510,15 se acreditan de forma adicional: 81,93
     Cuando se cargan $962,59 se acreditan de forma adicional: 221,58
@@ -51,6 +52,13 @@ class Tarjeta implements TarjetaInterface {
      */
     public function obtenerSaldo() {
       return $this->saldo;
+    }
+
+    /*
+     Resta saldo a la tarjeta
+     */
+    public function restarSaldo($valorB){
+        $this->saldo-=$valorB;
     }
 
 }
