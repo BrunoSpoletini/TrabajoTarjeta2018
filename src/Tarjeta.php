@@ -3,6 +3,7 @@
 namespace TrabajoTarjeta;
 
 class Tarjeta implements TarjetaInterface {
+    
     protected $saldo;
 
 /*/

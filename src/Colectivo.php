@@ -58,7 +58,7 @@ class Colectivo implements ColectivoInterface {
             return FALSE;
         } else {
             //$tarjeta->saldo -= $valorb;
-            $boleto = new \TrabajoTarjeta\Boleto ($valorb, $this, $tarjeta);
+            $boleto = new Boleto ($valorb, $this, $tarjeta);
             return $boleto;
         }
     }

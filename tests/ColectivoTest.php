@@ -6,10 +6,10 @@ use PHPUnit\Framework\TestCase;
 
 class ColectivoTest extends TestCase {
 
-    public function testAlgoUtil() {
-        $tarjeta = new \TrabajoTarjeta\Tarjeta;
+    public function testPagarColectivo() {
+        $tarjeta = new Tarjeta;
         $tarjeta->recargar(510.15);
-        $colectivo = new \TrabajoTarjeta\Colectivo(122,"Semtur",37);
+        $colectivo = new Colectivo(122,"Semtur",37);
         /*
             Probamos la asignacion de parametros iniciales
         */
@@ -19,7 +19,16 @@ class ColectivoTest extends TestCase {
         /*
             Probamos la realizacion de una viaje
         */
-        $boleto = new \TrabajoTarjeta\Boleto (14.80, $colectivo, $tarjeta);
+        $boleto = new Boleto (14.80, $colectivo, $tarjeta);
         $this->assertEquals($colectivo->pagarCon($tarjeta), $boleto);
+    }
+
+    public function testSinSaldo() {
+        $tarjeta = new Tarjeta;
+        $colectivo = new Colectivo(141,"Semtur",37);
+        /*
+            Probamos la realizacion de una viaje sin saldo
+        */
+        $this->assertEquals($colectivo->pagarCon($tarjeta), FALSE);
     }
 }
