@@ -44,13 +44,19 @@ class Tarjeta implements TarjetaInterface {
             return false;
     }
     $boleto = 14.8;
-    if($this->saldo>$boleto && $this->plus==1){
-        $this->saldo-=$boleto;
-        $this->plus=0;
-    }
-    if($this->saldo>($boleto*2) && $this->plus==2){
+    if( $this->plus==2){
+        if($this->saldo>($boleto*2)){
         $this->saldo-=($boleto*2);
         $this->plus=0;
+        } else if($this->saldo>$boleto){
+            $this->saldo-=$boleto;
+            $this->plus=1;
+        }
+    } else{
+        if($this->plus==1 && $this->saldo>$boleto){
+            $this->saldo-=$boleto;
+            $this->plus=0;
+        }
     }
     // Devuelve true si el monto ingresado es válido
       return true;
