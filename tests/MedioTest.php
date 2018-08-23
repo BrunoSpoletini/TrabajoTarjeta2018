@@ -1,6 +1,6 @@
 <?php
 
-namespace Trabajomedio;
+namespace TrabajoTarjeta;
 
 use PHPUnit\Framework\TestCase;
 
@@ -16,38 +16,25 @@ class MedioTest extends TestCase {
       $this->assertEquals($medio->obtenerSaldo(), 0);
   }
 
-  public function testViajesPlus() {
+  public function testRestarBoletos() {
         $medio = new Medio;
 
         $this->assertTrue($medio->recargar(20));
         $this->assertEquals($medio->obtenerSaldo(), 20);
 
         $this->assertEquals($medio->restarSaldo(14.8), TRUE);
+        $this->assertEquals($medio->obtenerSaldo(), 12.6);
+
+        $this->assertEquals($medio->restarSaldo(14.8), TRUE);
         $this->assertEquals($medio->obtenerSaldo(), 5.2);
 
-        $this->assertEquals($medio->restarSaldo(14.8), TRUE);
-        $this->assertEquals($medio->restarSaldo(14.8), TRUE);
+        $this->assertEquals($medio->restarSaldo(14.8), FALSE);
+
+        $this->assertTrue($medio->recargar(962.59));
+
+        for( ($i = 0);$i<160;++$i){
+            $this->assertEquals($medio->restarSaldo(14.8), TRUE);
+        }
         $this->assertEquals($medio->restarSaldo(14.8), FALSE);
   }
-
-  public function testRecargarPlus() {
-    $medio = new medio;
-
-    $this->assertTrue($medio->recargar(20));
-    $this->assertEquals($medio->restarSaldo(14.8), TRUE);
-    $this->assertEquals($medio->restarSaldo(14.8), TRUE);
-    $this->assertEquals($medio->restarSaldo(14.8), TRUE);
-    $this->assertEquals($medio->restarSaldo(14.8), FALSE);
-    $this->assertEquals($medio->obtenerSaldo(), 5.2);
-    $this->assertTrue($medio->recargar(10));
-    $this->assertEquals($medio->obtenerSaldo(), 0.4);
-    $this->assertEquals($medio->restarSaldo(14.8), TRUE);
-    $this->assertEquals($medio->restarSaldo(14.8), FALSE);
-    $this->assertEquals($medio->obtenerSaldo(), 0.4);
-    $this->assertTrue($medio->recargar(30));
-    $this->assertEquals($medio->obtenerSaldo(), 0.8);
-    $this->assertEquals($medio->restarSaldo(14.8), TRUE);
-    $this->assertEquals($medio->restarSaldo(14.8), TRUE);
-    $this->assertEquals($medio->restarSaldo(14.8), FALSE);
-}
 }
