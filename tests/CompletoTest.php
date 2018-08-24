@@ -7,22 +7,22 @@ class CompletoTest extends TestCase {
      */
     public function testCargaSaldoInvalido() {
       $completo = new Completo;
-      $this->assertFalse($medio->recargar(15));
-      $this->assertEquals($medio->obtenerSaldo(), 0);
+      $this->assertFalse($completo->recargar(15));
+      $this->assertEquals($completo->obtenerSaldo(), 0);
   }
   public function testRestarBoletos() {
         $completo = new Completo;
-        $this->assertTrue($medio->recargar(20));
-        $this->assertEquals($medio->obtenerSaldo(), 20);
-        $this->assertEquals($medio->restarSaldo(14.8), TRUE);
-        $this->assertEquals($medio->obtenerSaldo(), 20);
-        $this->assertEquals($medio->restarSaldo(14.8), TRUE);
-        $this->assertEquals($medio->obtenerSaldo(), 20);
-        $this->assertEquals($medio->restarSaldo(14.8), TRUE);
-        $this->assertTrue($medio->recargar(962.59));
+        $this->assertTrue($completo->recargar(20));
+        $this->assertEquals($completo->obtenerSaldo(), 20);
+        $this->assertEquals($completo->restarSaldo(14.8), TRUE);
+        $this->assertEquals($completo->obtenerSaldo(), 20);
+        $this->assertEquals($completo->restarSaldo(14.8), TRUE);
+        $this->assertEquals($completo->obtenerSaldo(), 20);
+        $this->assertEquals($completo->restarSaldo(14.8), TRUE);
+        $this->assertTrue($completo->recargar(962.59));
         for( ($i = 0);$i<160;++$i){
-            $this->assertEquals($medio->restarSaldo(14.8), TRUE);
+            $this->assertEquals($completo->restarSaldo(14.8), TRUE);
         }
-        $this->assertEquals($medio->restarSaldo(14.8), TRUE);
+        $this->assertEquals($completo->restarSaldo(14.8), TRUE);
   }
 }
