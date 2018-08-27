@@ -6,6 +6,8 @@ class Tarjeta implements TarjetaInterface {
     
     protected $saldo;
 
+    protected $plus = 0;
+
 /*/
     Funcion para recargar la tarjeta
     Las cargas aceptadas de tarjetas son: (10, 20, 30, 50, 100, 510,15 y 962,59)
@@ -41,6 +43,21 @@ class Tarjeta implements TarjetaInterface {
         //Devuelve false si el monto ingresado no es válido
             return false;
     }
+    $boleto = 14.8;
+    if( $this->plus==2){
+        if($this->saldo>($boleto*2)){
+        $this->saldo-=($boleto*2);
+        $this->plus=0;
+        } else if($this->saldo>$boleto){
+            $this->saldo-=$boleto;
+            $this->plus=1;
+        }
+    } else{
+        if($this->plus==1 && $this->saldo>$boleto){
+            $this->saldo-=$boleto;
+            $this->plus=0;
+        }
+    }
     // Devuelve true si el monto ingresado es válido
       return true;
     }
@@ -58,7 +75,18 @@ class Tarjeta implements TarjetaInterface {
      Resta saldo a la tarjeta
      */
     public function restarSaldo($valorB){
-        $this->saldo-=$valorB;
+        if($this->saldo<$valorB){
+            if($this->plus<2){
+                $this->plus++;
+                return TRUE;
+            }
+            else{
+                return FALSE;
+            }
+        }
+        else{ 
+                $this->saldo-=$valorB;
+                return TRUE;
+            }
+        }
     }
-
-}

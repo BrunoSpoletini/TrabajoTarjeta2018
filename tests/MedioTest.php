@@ -18,11 +18,16 @@ class MedioTest extends TestCase {
         $this->assertEquals($medio->obtenerSaldo(), 12.6);
         $this->assertEquals($medio->restarSaldo(14.8), TRUE);
         $this->assertEquals($medio->obtenerSaldo(), 5.2);
+        $this->assertEquals($medio->restarSaldo(14.8), TRUE);
+        $this->assertEquals($medio->restarSaldo(14.8), TRUE);
         $this->assertEquals($medio->restarSaldo(14.8), FALSE);
         $this->assertTrue($medio->recargar(962.59));
-        for( ($i = 0);$i<160;++$i){
+        $this->assertEquals($medio->obtenerSaldo(), 1159.77);
+        for( ($i = 0);$i<156;++$i){
             $this->assertEquals($medio->restarSaldo(14.8), TRUE);
         }
+        $this->assertEquals($medio->restarSaldo(14.8), TRUE);
+        $this->assertEquals($medio->restarSaldo(14.8), TRUE);
         $this->assertEquals($medio->restarSaldo(14.8), FALSE);
   }
 }
