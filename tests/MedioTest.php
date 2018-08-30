@@ -10,6 +10,9 @@ class MedioTest extends TestCase {
       $this->assertFalse($medio->recargar(15));
       $this->assertEquals($medio->obtenerSaldo(), 0);
   }
+    /**
+     * Comprueba que la tarjeta con media franquicia puede restar boletos
+    */
   public function testRestarBoletos() {
         $medio = new Medio;
         $this->assertTrue($medio->recargar(20));

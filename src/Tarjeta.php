@@ -6,6 +6,8 @@ class Tarjeta implements TarjetaInterface {
     
     protected $saldo;
 
+    protected $ValorBoleto=14.8;
+
     protected $plus = 0;
 
 /*/
@@ -42,24 +44,27 @@ class Tarjeta implements TarjetaInterface {
         default:
         //Devuelve false si el monto ingresado no es válido
             return false;
-    }
-    $boleto = 14.8;
-    if( $this->plus==2){
-        if($this->saldo>($boleto*2)){
-        $this->saldo-=($boleto*2);
-        $this->plus=0;
-        } else if($this->saldo>$boleto){
-            $this->saldo-=$boleto;
-            $this->plus=1;
         }
-    } else{
-        if($this->plus==1 && $this->saldo>$boleto){
-            $this->saldo-=$boleto;
+        $this->PagarPlus();
+        // Devuelve true si el monto ingresado es válido
+        return true;
+    }
+
+    protected function PagarPlus(){
+        if( $this->plus==2){
+            if($this->saldo>($this->ValorBoleto*2)){
+            $this->saldo-=($this->ValorBoleto*2);
             $this->plus=0;
+            } else if($this->saldo>$this->ValorBoleto){
+                $this->saldo-=$this->ValorBoleto;
+                $this->plus=1;
+            }
+        } else{
+            if($this->plus==1 && $this->saldo>$this->ValorBoleto){
+                $this->saldo-=$this->ValorBoleto;
+                $this->plus=0;
+            }
         }
-    }
-    // Devuelve true si el monto ingresado es válido
-      return true;
     }
 
     /**
@@ -75,18 +80,14 @@ class Tarjeta implements TarjetaInterface {
      Resta saldo a la tarjeta
      */
     public function restarSaldo($valorB){
-        if($this->saldo<$valorB){
-            if($this->plus<2){
-                $this->plus++;
-                return TRUE;
-            }
-            else{
-                return FALSE;
-            }
+        if($this->saldo>$valorB){
+            $this->saldo-=$valorB;
+            return TRUE;
         }
-        else{ 
-                $this->saldo-=$valorB;
-                return TRUE;
-            }
+        if($this->plus<2){
+            $this->plus++;
+            return TRUE;
         }
-    }
+        return FALSE;
+        }
+}

@@ -43,7 +43,9 @@ class TarjetaTest extends TestCase {
       $this->assertFalse($tarjeta->recargar(15));
       $this->assertEquals($tarjeta->obtenerSaldo(), 0);
   }
-
+    /*
+     * Comprueba que la tarjeta tiene viajes plus
+    */
   public function testViajesPlus() {
         $tarjeta = new Tarjeta;
 
@@ -58,6 +60,9 @@ class TarjetaTest extends TestCase {
         $this->assertEquals($tarjeta->restarSaldo(14.8), FALSE);
   }
 
+  /*
+     * Comprueba que se puede recargargar el viaje plus
+    */
   public function testRecargarPlus() {
     $tarjeta = new Tarjeta;
 
