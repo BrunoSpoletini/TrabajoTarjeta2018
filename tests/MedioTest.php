@@ -6,7 +6,7 @@ class MedioTest extends TestCase {
      * Comprueba que la tarjeta con media franquicia no puede cargar saldos invalidos.
      */
     public function testCargaSaldoInvalido() {
-      $medio = new Medio;
+      $medio = new Medio(0);
       $this->assertFalse($medio->recargar(15));
       $this->assertEquals($medio->obtenerSaldo(), 0);
   }
@@ -14,7 +14,7 @@ class MedioTest extends TestCase {
      * Comprueba que la tarjeta con media franquicia puede restar boletos
     */
   public function testRestarBoletos() {
-        $medio = new Medio;
+        $medio = new Medio(0);
         $this->assertTrue($medio->recargar(20));
         $this->assertEquals($medio->obtenerSaldo(), 20);
         $this->assertEquals($medio->restarSaldo(), TRUE);

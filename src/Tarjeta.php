@@ -10,6 +10,14 @@ class Tarjeta implements TarjetaInterface {
 
     protected $plus = 0;
 
+    protected $pagoplus = 0;
+
+    protected $id;
+
+    public function __construct($id) {
+        $this->id = $id;
+    }
+
 /*/
     Funcion para recargar la tarjeta
     Las cargas aceptadas de tarjetas son: (10, 20, 30, 50, 100, 510,15 y 962,59)
@@ -55,9 +63,11 @@ class Tarjeta implements TarjetaInterface {
             if($this->saldo>=($this->ValorBoleto*2)){
             $this->saldo-=($this->ValorBoleto*2);
             $this->plus=0;
+            $this->pagoplus=2;
             } else if($this->saldo>=$this->ValorBoleto){
                 $this->saldo-=$this->ValorBoleto;
                 $this->plus=1;
+                $this->pagoplus=1;
             }
         } else{
             if($this->plus==1 && $this->saldo>$this->ValorBoleto){
@@ -94,4 +104,20 @@ class Tarjeta implements TarjetaInterface {
     public function ValorPagado(){
         return $this->ValorBoleto;
     }
+
+    // Setea a 0 el "pago plus". Esta funcion se ejecutara cuando se emite el boleto
+    public function obtenerPagoPlus(){
+        $pagoplusaux = $this->pagoplus;
+        $this->pagoplus=0;
+        return $pagoplusaux;
+    }
+
+    public function boletoCompleto(){
+        return $this->ValorBoleto;
+    }
+
+    public function obtenerId(){
+        return $this->id;
+    }
+
 }

@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 class ColectivoTest extends TestCase {
 
     public function testPagarColectivo() {
-        $tarjeta = new Tarjeta;
+        $tarjeta = new Tarjeta(0);
         $tarjeta->recargar(510.15);
         $colectivo = new Colectivo(122,"Semtur",37);
         /*
@@ -19,13 +19,12 @@ class ColectivoTest extends TestCase {
         /*
             Probamos la realizacion de una viaje
         */
-        $boleto = new Boleto ($colectivo, $tarjeta);
-        $this->assertEquals($colectivo->pagarCon($tarjeta), $boleto);
+        $this->assertEquals($colectivo->pagarCon($tarjeta), new Boleto ($colectivo, $tarjeta));
         $this->assertEquals($tarjeta->obtenerSaldo(),577.28);
     }
 
     public function testSinSaldo() {
-        $tarjeta = new Tarjeta;
+        $tarjeta = new Tarjeta(0);
         $colectivo = new Colectivo(141,"Semtur",37);
         /*
             Probamos la realizacion de una viaje sin saldo
