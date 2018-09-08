@@ -22,6 +22,8 @@ class Boleto implements BoletoInterface {
 
     protected $saldo;
 
+    protected $descripcion;
+
     public function __construct($colectivo, $tarjeta) {
         $this->valor = $tarjeta->ValorPagado();
         $this->colectivo = $colectivo;
@@ -32,6 +34,7 @@ class Boleto implements BoletoInterface {
         $this->boletoCompleto = $tarjeta->boletoCompleto();
         $this->linea = $colectivo->linea();
         $this->saldo = $tarjeta->obtenerSaldo();
+        $this->descripcion = "Abona viajes plus ". $this->cantplus*$tarjeta->boletoCompleto() ."y \n";
     }
 
     /**
@@ -78,4 +81,7 @@ class Boleto implements BoletoInterface {
         return $this->saldo;
     }
 
+    public function obtenerDescripcion(){
+        return $this->descripcion;
+    }
 }
