@@ -9,8 +9,9 @@ class BoletoTest extends TestCase {
      * Comprueba que sucede cuando creamos un boleto nuevo.
      */
     public function testSaldoCero() {
+        $tarjeta = new Tarjeta;
         $valor = 14.80;
-        $boleto = new Boleto($valor, NULL, NULL);
+        $boleto = new Boleto(NULL, $tarjeta);
 
         $this->assertEquals($boleto->obtenerValor(), $valor);
     }
@@ -19,7 +20,8 @@ class BoletoTest extends TestCase {
      */
     public function testColectivoDeBoleto(){
         $colectivo = new Colectivo(133,"RosarioBus",69);
-        $boleto = new Boleto(14.80, $colectivo, NULL);
+        $tarjeta = new Tarjeta;
+        $boleto = new Boleto($colectivo, $tarjeta);
         $this->assertEquals($boleto->obtenerColectivo(), $colectivo);
     }
 }

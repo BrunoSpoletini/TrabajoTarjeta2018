@@ -52,10 +52,10 @@ class Tarjeta implements TarjetaInterface {
 
     protected function PagarPlus(){
         if( $this->plus==2){
-            if($this->saldo>($this->ValorBoleto*2)){
+            if($this->saldo>=($this->ValorBoleto*2)){
             $this->saldo-=($this->ValorBoleto*2);
             $this->plus=0;
-            } else if($this->saldo>$this->ValorBoleto){
+            } else if($this->saldo>=$this->ValorBoleto){
                 $this->saldo-=$this->ValorBoleto;
                 $this->plus=1;
             }
@@ -79,9 +79,9 @@ class Tarjeta implements TarjetaInterface {
     /*
      Resta saldo a la tarjeta
      */
-    public function restarSaldo($valorB){
-        if($this->saldo>$valorB){
-            $this->saldo-=$valorB;
+    public function restarSaldo(){
+        if($this->saldo>=$this->ValorBoleto){
+            $this->saldo-=$this->ValorBoleto;
             return TRUE;
         }
         if($this->plus<2){
@@ -90,4 +90,8 @@ class Tarjeta implements TarjetaInterface {
         }
         return FALSE;
         }
+
+    public function ValorPagado(){
+        return $this->ValorBoleto;
+    }
 }

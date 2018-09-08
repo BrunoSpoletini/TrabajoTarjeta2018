@@ -8,8 +8,8 @@ class CompletoTest extends TestCase {
   public function testRestarBoletos() {
         $completo = new Completo;
         for( ($i = 0);$i<160;++$i){
-            $this->assertEquals($completo->restarSaldo(14.8), TRUE);
+            $this->assertEquals($completo->restarSaldo(), TRUE);
         }
-        $this->assertEquals($completo->restarSaldo(14.8), TRUE);
+        $this->assertEquals($completo->restarSaldo(), TRUE);
   }
 }

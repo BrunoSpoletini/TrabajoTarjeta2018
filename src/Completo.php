@@ -7,7 +7,5 @@ Tarjeta medio
 Tarjeta completo
 /*/
 class Completo extends Tarjeta {
-    public function restarSaldo($valorB){
-        return TRUE;
-        }
+    protected $ValorBoleto=0;
 }

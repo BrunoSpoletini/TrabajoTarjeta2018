@@ -7,19 +7,19 @@ Tarjeta medio
 Tarjeta completo
 /*/
 class Medio extends Tarjeta {
-    public function restarSaldo($valorB){
-        if($this->saldo<($valorB/2)){
-            if($this->plus<2){
-                $this->plus++;
-                return TRUE;
-            }
-            else{
-                return FALSE;
-            }
+    public function restarSaldo(){
+        if($this->saldo>=($this->ValorBoleto)/2){
+            $this->saldo-=($this->ValorBoleto/2);
+            return TRUE;
         }
-        else{ 
-                $this->saldo-=($valorB/2);
-                return TRUE;
+        if($this->plus<2){
+            $this->plus++;
+            return TRUE;
         }
+        return FALSE;
+        }
+
+    public function ValorPagado(){
+            return ($ValorBoleto/2);
     }
 }

@@ -53,11 +53,10 @@ class Colectivo implements ColectivoInterface {
      *  suficiente en la tarjeta.
      */
     public function pagarCon(TarjetaInterface $tarjeta){
-        $valorb = 14.80;
-        if(!($tarjeta->restarSaldo($valorb))){
+        if(!($tarjeta->restarSaldo())){
             return FALSE;
         }
-        $boleto = new Boleto ($valorb, $this, $tarjeta);
+        $boleto = new Boleto ($this, $tarjeta);
         return $boleto;
         
     }
