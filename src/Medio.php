@@ -7,19 +7,25 @@ Tarjeta medio
 Tarjeta completo
 /*/
 class Medio extends Tarjeta {
+
     public function restarSaldo(){
-        if($this->saldo>=($this->ValorBoleto)/2){
-            $this->saldo-=($this->ValorBoleto/2);
+        if((time()-$this->UltimaHora)<300){return FALSE;}
+        $ValorARestar = $this->CalculaValor();
+        if($this->saldo>=$ValorARestar){
+            $this->saldo-=$ValorARestar;
+            $this->UltimoValorPagado=$ValorARestar;
+            $this->UltimaHora = time();
             return TRUE;
         }
         if($this->plus<2){
             $this->plus++;
+            $this->UltimaHora = time();
             return TRUE;
         }
         return FALSE;
         }
 
-    public function ValorPagado(){
-            return ($ValorBoleto/2);
+    public function CalculaValor(){
+        return (($this->ValorBoleto)/2);
     }
 }

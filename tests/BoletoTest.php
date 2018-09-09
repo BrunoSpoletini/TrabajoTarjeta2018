@@ -10,10 +10,13 @@ class BoletoTest extends TestCase {
      */
     public function testSaldoCero() {
         $tarjeta = new Tarjeta;
-        $valor = 14.80;
-        $boleto = new Boleto(NULL, $tarjeta);
+        $colectivo = new Colectivo(133,"RosarioBus",69);
+        $boleto = $colectivo->pagarCon($tarjeta);
+        $this->assertEquals($boleto->obtenerValor(), null);
+        $tarjeta->recargar(50);
+        $boleto = $colectivo->pagarCon($tarjeta);
+        $this->assertEquals($boleto->obtenerValor(), 14.8);
 
-        $this->assertEquals($boleto->obtenerValor(), $valor);
     }
     /**
      * Comprueba si funciona crear un boleo con un colectivo determinado

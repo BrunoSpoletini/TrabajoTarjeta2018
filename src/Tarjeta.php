@@ -10,6 +10,10 @@ class Tarjeta implements TarjetaInterface {
 
     protected $plus = 0;
 
+    protected $UltimoValorPagado=null;
+
+    protected $UltimaHora = 0;
+
 /*/
     Funcion para recargar la tarjeta
     Las cargas aceptadas de tarjetas son: (10, 20, 30, 50, 100, 510,15 y 962,59)
@@ -80,18 +84,26 @@ class Tarjeta implements TarjetaInterface {
      Resta saldo a la tarjeta
      */
     public function restarSaldo(){
-        if($this->saldo>=$this->ValorBoleto){
-            $this->saldo-=$this->ValorBoleto;
+        $ValorARestar = $this->CalculaValor();
+        if($this->saldo>=$ValorARestar){
+            $this->saldo-=$ValorARestar;
+            $this->UltimoValorPagado=$ValorARestar;
+            $this->UltimaHora = time();
             return TRUE;
         }
         if($this->plus<2){
             $this->plus++;
+            $this->UltimaHora = time();
             return TRUE;
         }
         return FALSE;
         }
 
-    public function ValorPagado(){
+    public function CalculaValor(){
         return $this->ValorBoleto;
+    }
+
+    public function ValorPagado(){
+        return $this->UltimoValorPagado;
     }
 }

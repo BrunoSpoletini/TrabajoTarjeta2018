@@ -56,8 +56,7 @@ class Colectivo implements ColectivoInterface {
         if(!($tarjeta->restarSaldo())){
             return FALSE;
         }
-        $boleto = new Boleto ($this, $tarjeta);
-        return $boleto;
+        return (new Boleto ($this, $tarjeta));
         
     }
 
