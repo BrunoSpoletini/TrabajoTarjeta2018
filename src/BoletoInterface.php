@@ -2,7 +2,8 @@
 
 namespace TrabajoTarjeta;
 
-interface BoletoInterface {
+interface BoletoInterface
+{
 
     /**
      * Devuelve el valor del boleto.
