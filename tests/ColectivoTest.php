@@ -7,7 +7,8 @@ use PHPUnit\Framework\TestCase;
 class ColectivoTest extends TestCase {
 
     public function testPagarColectivo() {
-        $tarjeta = new Tarjeta(0);
+        $tiempo = new Tiempo;
+        $tarjeta = new Tarjeta(0,$tiempo);
         $tarjeta->recargar(510.15);
         $colectivo = new Colectivo(122,"Semtur",37);
         /*
@@ -24,7 +25,9 @@ class ColectivoTest extends TestCase {
     }
 
     public function testSinSaldo() {
-        $tarjeta = new Tarjeta(0);
+
+        $tiempo = new Tiempo;
+        $tarjeta = new Tarjeta(0,$tiempo);
         $colectivo = new Colectivo(141,"Semtur",37);
         /*
             Probamos la realizacion de una viaje sin saldo
