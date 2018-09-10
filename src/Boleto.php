@@ -2,7 +2,8 @@
 
 namespace TrabajoTarjeta;
 
-class Boleto implements BoletoInterface {
+class Boleto implements BoletoInterface
+{
 
     protected $valor;
 
@@ -11,7 +12,7 @@ class Boleto implements BoletoInterface {
     protected $tarjeta;
 
     protected $cantplus;
-    
+
     protected $hora;
 
     protected $idtarjeta;
@@ -24,17 +25,24 @@ class Boleto implements BoletoInterface {
 
     protected $descripcion;
 
-    public function __construct($colectivo, $tarjeta) {
+    protected $Tipo;
+
+    protected $usoPlus;
+
+    public function __construct($colectivo, $tarjeta)
+    {
         $this->valor = ($tarjeta->ValorPagado());
         $this->colectivo = $colectivo;
         $this->tarjeta = $tarjeta;
+        $this->usoPlus = $tarjeta->usoPlus();
         $this->cantplus = $tarjeta->obtenerPagoPlus();
-        $this->hora = date("d/m/Y H:i:s", time());
+        $this->hora = date("d/m/Y H:i:s", $tarjeta->UltimaHoraUsada());
         $this->idtarjeta = $tarjeta->obtenerId();
         $this->boletoCompleto = $tarjeta->boletoCompleto();
         $this->linea = $colectivo->linea();
         $this->saldo = $tarjeta->obtenerSaldo();
-        $this->descripcion = "Abona viajes plus ". $this->cantplus*$tarjeta->boletoCompleto() ."y \n";
+        $this->PagoPlus = "Abona viajes plus " . $this->cantplus * $tarjeta->boletoCompleto() . " y ";
+        $this->Tipo = get_class($tarjeta);
     }
 
     /**
@@ -42,7 +50,8 @@ class Boleto implements BoletoInterface {
      *
      * @return int
      */
-    public function obtenerValor() {
+    public function obtenerValor()
+    {
         return $this->valor;
     }
 
@@ -51,37 +60,63 @@ class Boleto implements BoletoInterface {
      *
      * @return ColectivoInterface
      */
-    public function obtenerColectivo() {
+    public function obtenerColectivo()
+    {
         return $this->colectivo;
     }
 
-    public function obtenerFecha(){
+    public function obtenerFecha()
+    {
         return $this->hora;
     }
 
-    public function obtenerTarjeta(){
+    public function obtenerTarjeta()
+    {
         return $this->tarjeta;
     }
 
-    public function obtenerLinea(){
-        return $this->linea; 
+    public function obtenerLinea()
+    {
+        return $this->linea;
     }
 
-    public function obtenerAbonado(){
-        $TotalAbonado = $this->obtenerValor() + ($this->boletoCompleto*$this->cantplus);
+    public function obtenerAbonado()
+    {
+        $TotalAbonado = $this->obtenerValor() + ($this->boletoCompleto * $this->cantplus);
         return $TotalAbonado;
     }
-        //Hacer caso de prueba
+    //Hacer caso de prueba
 
-    public function obtenerIdTarjeta(){
+    public function obtenerIdTarjeta()
+    {
         return $this->idtarjeta;
     }
 
-    public function obtenerSaldo(){
+    public function obtenerSaldo()
+    {
         return $this->saldo;
     }
 
-    public function obtenerDescripcion(){
-        return $this->descripcion;
+    public function obtenerTipo()
+    {
+        return $this->Tipo;
+    }
+
+    public function obtenerDescripcion()
+    {
+        $StringAuxiliar;
+        if($this->valor==0.0){
+            if($this->Tipo=="TrabajoTarjeta\Completo") $StringAuxiliar = "Completo 0.0";
+            else{
+                if($this->usoPlus==1) $StringAuxiliar ="ViajePlus 0.0"; else $StringAuxiliar ="UltimoPlus 0.0";
+            }
+        } else {
+            if($this->valor == ($this->boletoCompleto/2)) $StringAuxiliar ="Medio " . ($this->valor);
+            else $StringAuxiliar ="Normal " . ($this->valor);
+        }
+        if($this->cantplus!=0){
+            return $this->PagoPlus . $StringAuxiliar;
+            }
+        return $StringAuxiliar;
     }
 }
