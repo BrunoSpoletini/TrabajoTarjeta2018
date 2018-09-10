@@ -9,10 +9,14 @@ class Tarjeta implements TarjetaInterface {
     protected $ValorBoleto=14.8;
 
     protected $plus = 0;
-
+  
     protected $UltimoValorPagado=null;
 
     protected $UltimaHora = 0; 
+    
+    protected $pagoplus = 0;
+
+    protected $id;
 
 /*/
     Funcion para recargar la tarjeta
@@ -20,7 +24,8 @@ class Tarjeta implements TarjetaInterface {
     Cuando se cargan $510,15 se acreditan de forma adicional: 81,93
     Cuando se cargan $962,59 se acreditan de forma adicional: 221,58
 /*/
-    public function __construct(TiempoInterface $tiempo){
+    public function __construct($id,TiempoInterface $tiempo){
+        $this->id = $id;
         $this->tiempo = $tiempo;
     }
 
@@ -62,9 +67,11 @@ class Tarjeta implements TarjetaInterface {
             if($this->saldo>=($this->ValorBoleto*2)){
             $this->saldo-=($this->ValorBoleto*2);
             $this->plus=0;
+            $this->pagoplus=2;
             } else if($this->saldo>=$this->ValorBoleto){
                 $this->saldo-=$this->ValorBoleto;
                 $this->plus=1;
+                $this->pagoplus=1;
             }
         } else{
             if($this->plus==1 && $this->saldo>$this->ValorBoleto){
@@ -104,6 +111,21 @@ class Tarjeta implements TarjetaInterface {
 
     public function CalculaValor(){
         return $this->ValorBoleto;
+    }
+
+    // Setea a 0 el "pago plus". Esta funcion se ejecutara cuando se emite el boleto
+    public function obtenerPagoPlus(){
+        $pagoplusaux = $this->pagoplus;
+        $this->pagoplus=0;
+        return $pagoplusaux;
+    }
+
+    public function boletoCompleto(){
+        return $this->ValorBoleto;
+    }
+
+    public function obtenerId(){
+        return $this->id;
     }
 
     public function ValorPagado(){

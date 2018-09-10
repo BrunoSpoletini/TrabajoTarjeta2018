@@ -7,7 +7,7 @@ class MedioTest extends TestCase {
      */
     public function testCargaSaldoInvalido() {
       $tiempo = new Tiempo;
-      $medio = new Medio($tiempo);
+      $medio = new Medio(0,$tiempo);
       $this->assertFalse($medio->recargar(15));
       $this->assertEquals($medio->obtenerSaldo(), 0);
   }
@@ -16,7 +16,7 @@ class MedioTest extends TestCase {
     */
   public function testRestarBoletos() {
         $tiempo = new TiempoFalso;
-        $medio = new Medio($tiempo);
+        $medio = new Medio(0,$tiempo);
         $this->assertTrue($medio->recargar(20));
         $this->assertEquals($medio->obtenerSaldo(), 20);
         $this->assertEquals($medio->restarSaldo(), TRUE);

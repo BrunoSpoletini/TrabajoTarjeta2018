@@ -9,8 +9,9 @@ class BoletoTest extends TestCase {
      * Comprueba que sucede cuando creamos un boleto nuevo.
      */
     public function testSaldoCero() {
+
         $tiempo = new Tiempo();
-        $tarjeta = new Tarjeta($tiempo);
+        $tarjeta = new Tarjeta(0,$tiempo);
         $colectivo = new Colectivo(133,"RosarioBus",69);
         $boleto = $colectivo->pagarCon($tarjeta);
         $this->assertEquals($boleto->obtenerValor(), null);
@@ -20,13 +21,32 @@ class BoletoTest extends TestCase {
 
     }
     /**
-     * Comprueba si funciona crear un boleo con un colectivo determinado
+     * Comprueba retorno de datos
      */
-    public function testColectivoDeBoleto(){
+    public function testDatosBoleto(){
         $colectivo = new Colectivo(133,"RosarioBus",69);
         $tiempo = new Tiempo();
-        $tarjeta = new Tarjeta($tiempo);
-        $boleto = new Boleto($colectivo, $tarjeta);
+        $tarjeta = new Tarjeta(0,$tiempo);
+        $tarjeta->recargar(100);
+        $boleto=$colectivo->pagarCon($tarjeta);
         $this->assertEquals($boleto->obtenerColectivo(), $colectivo);
+
+        $this->assertEquals($boleto->obtenerLinea(),133); 
+
+        /*/
+
+        $this->assertEquals($boleto->obtenerFecha(),$????); //   TRABAJO DE CERRUTI
+        /*/
+
+        $this->assertEquals($boleto->obtenerTarjeta(),$tarjeta);
+
+        $this->assertEquals($boleto->obtenerIdTarjeta(),0);
+
+        $this->assertEquals($boleto->obtenerSaldo(),85.2);
+
+        $this->assertEquals($boleto->obtenerAbonado(),14.8);
+
+
     }
+  
 }
