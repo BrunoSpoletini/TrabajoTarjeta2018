@@ -3,6 +3,8 @@
   
 [![Build Status](https://travis-ci.org/BrunoSpoletini/TrabajoTarjeta2018.svg?branch=master)](https://travis-ci.org/BrunoSpoletini/TrabajoTarjeta2018)
 
+[![Coverage Status](https://coveralls.io/repos/github/BrunoSpoletini/TrabajoTarjeta2018/badge.svg?branch=master)](https://coveralls.io/github/BrunoSpoletini/TrabajoTarjeta2018?branch=master)
+
 
 Integrantes: Spoletini Bruno, Cerruti Lautaro
 
