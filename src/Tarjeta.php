@@ -123,8 +123,18 @@ class Tarjeta implements TarjetaInterface
 
     public function CalculaValor($linea)
     {
-        if ($this->UltimoColectivo == $linea || $this->UltimoValorPagado == 0.0) {return $this->ValorBoleto;}
-        return ($this->ValorBoleto * 1.33); // Para tarjeta devuelve el valor del boleto
+        return ($this->Trasbordo($linea,$this->ValorBoleto));
+    }
+
+    public function Trasbordo($linea,$ValorBoleto){
+        if ($this->UltimoColectivo == $linea || $this->UltimoValorPagado == 0.0) {return $ValorBoleto;}
+        if((date('N',$this->tiempo)<5 && date('G',$this->tiempo)>6 && date('G',$this->tiempo)<22) || (date('N',$this->tiempo)==5 && date('G',$this->tiempo)>6 && date('G',$this->tiempo)<14))){
+            if(...){...}
+        }
+        else{
+
+        }
+        return ($ValorBoleto * 1.33);
     }
 
     // Setea a 0 el "pago plus". Esta funcion se ejecutara cuando se emite el boleto

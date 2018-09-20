@@ -32,7 +32,6 @@ class Medio extends Tarjeta
 
     public function CalculaValor($linea)
     {
-        if ($this->UltimoColectivo == $linea || $this->UltimoValorPagado == 0.0) {return ($this->ValorBoleto/2);}//el valor del medio es la mitad de un valor normal
-        return (($this->ValorBoleto/2) * 1.33); 
+        return ($this->Trasbordo($linea,($this->ValorBoleto/2)));
     }
 }

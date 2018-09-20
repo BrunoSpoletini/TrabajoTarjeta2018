@@ -17,7 +17,6 @@ class MedioUniversitario extends Medio
             $BoletoTemporal = (($this->ValorBoleto) / 2); //Y devualve la mitad del valor
         } else {$BoletoTemporal = $this->ValorBoleto;} // Devuelve el valor entero
 
-        if ($this->UltimoColectivo == $linea || $this->UltimoValorPagado == 0.0) {return $BoletoTemporal;}
-        return ($BoletoTemporal * 1.33); // Para tarjeta devuelve el valor del boleto
+        return ($this->Trasbordo($linea,$BoletoTemporal));
     }
 }
