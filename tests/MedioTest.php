@@ -26,33 +26,33 @@ class MedioTest extends TestCase
         $medio = new Medio(0, $tiempo);
         $this->assertTrue($medio->recargar(20));
         $this->assertEquals($medio->obtenerSaldo(), 20);
-        $this->assertEquals($medio->restarSaldo(), true);
+        $this->assertEquals($medio->restarSaldo("153"), true);
         $tiempo->avanzar(300);
         $this->assertEquals($medio->obtenerSaldo(), 12.6);
-        $this->assertEquals($medio->restarSaldo(), true);
+        $this->assertEquals($medio->restarSaldo("153"), true);
         $this->assertEquals($medio->obtenerSaldo(), 5.2);
         $tiempo->avanzar(300);
-        $this->assertEquals($medio->restarSaldo(), true);
+        $this->assertEquals($medio->restarSaldo("153"), true);
         $tiempo->avanzar(300);
-        $this->assertEquals($medio->restarSaldo(), true);
+        $this->assertEquals($medio->restarSaldo("153"), true);
         $tiempo->avanzar(300);
-        $this->assertEquals($medio->restarSaldo(), false);
+        $this->assertEquals($medio->restarSaldo("153"), false);
         $this->assertTrue($medio->recargar(962.59));
         $this->assertEquals($medio->obtenerSaldo(), 1159.77);
-        $this->assertEquals($medio->restarSaldo(), true);
-        $this->assertEquals($medio->restarSaldo(), false);
-        $this->assertEquals($medio->restarSaldo(), false);
-        $this->assertEquals($medio->restarSaldo(), false);
+        $this->assertEquals($medio->restarSaldo("153"), true);
+        $this->assertEquals($medio->restarSaldo("153"), false);
+        $this->assertEquals($medio->restarSaldo("153"), false);
+        $this->assertEquals($medio->restarSaldo("153"), false);
         $tiempo->avanzar(300);
         for (($i = 0); $i < 155; ++$i) {
-            $this->assertEquals($medio->restarSaldo(), true);
+            $this->assertEquals($medio->restarSaldo("153"), true);
             $tiempo->avanzar(300);
         }
-        $this->assertEquals($medio->restarSaldo(), true);
-        $this->assertEquals($medio->restarSaldo(), false);
+        $this->assertEquals($medio->restarSaldo("153"), true);
+        $this->assertEquals($medio->restarSaldo("153"), false);
         $tiempo->avanzar(300);
-        $this->assertEquals($medio->restarSaldo(), true);
-        $this->assertEquals($medio->restarSaldo(), false);
+        $this->assertEquals($medio->restarSaldo("153"), true);
+        $this->assertEquals($medio->restarSaldo("153"), false);
     }
 
     /**
@@ -63,25 +63,25 @@ class MedioTest extends TestCase
         $tiempo = new TiempoFalso;
         $medio = new Medio(0, $tiempo);
         $this->assertTrue($medio->recargar(962.59));
-        $this->assertEquals($medio->restarSaldo(), true);
+        $this->assertEquals($medio->restarSaldo("153"), true);
         $tiempo->avanzar(300);
-        $this->assertEquals($medio->restarSaldo(), true);
+        $this->assertEquals($medio->restarSaldo("153"), true);
         $tiempo->avanzar(50);
-        $this->assertEquals($medio->restarSaldo(), false);
+        $this->assertEquals($medio->restarSaldo("153"), false);
         $tiempo->avanzar(50);
-        $this->assertEquals($medio->restarSaldo(), false);
+        $this->assertEquals($medio->restarSaldo("153"), false);
         $tiempo->avanzar(50);
-        $this->assertEquals($medio->restarSaldo(), false);
+        $this->assertEquals($medio->restarSaldo("153"), false);
         $tiempo->avanzar(50);
-        $this->assertEquals($medio->restarSaldo(), false);
+        $this->assertEquals($medio->restarSaldo("153"), false);
         $tiempo->avanzar(50);
-        $this->assertEquals($medio->restarSaldo(), false);
+        $this->assertEquals($medio->restarSaldo("153"), false);
         $tiempo->avanzar(50);
-        $this->assertEquals($medio->restarSaldo(), true);
+        $this->assertEquals($medio->restarSaldo("153"), true);
         $tiempo->avanzar(265);
-        $this->assertEquals($medio->restarSaldo(), false);
+        $this->assertEquals($medio->restarSaldo("153"), false);
         $tiempo->avanzar(584);
-        $this->assertEquals($medio->restarSaldo(), true);
-        $this->assertEquals($medio->restarSaldo(), false);
+        $this->assertEquals($medio->restarSaldo("153"), true);
+        $this->assertEquals($medio->restarSaldo("153"), false);
     }
 }

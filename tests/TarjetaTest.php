@@ -60,12 +60,12 @@ class TarjetaTest extends TestCase
         $this->assertTrue($tarjeta->recargar(20));
         $this->assertEquals($tarjeta->obtenerSaldo(), 20);
 
-        $this->assertEquals($tarjeta->restarSaldo(), true);
+        $this->assertEquals($tarjeta->restarSaldo("153"), true);
         $this->assertEquals($tarjeta->obtenerSaldo(), 5.2);
 
-        $this->assertEquals($tarjeta->restarSaldo(), true);
-        $this->assertEquals($tarjeta->restarSaldo(), true);
-        $this->assertEquals($tarjeta->restarSaldo(), false);
+        $this->assertEquals($tarjeta->restarSaldo("153"), true);
+        $this->assertEquals($tarjeta->restarSaldo("153"), true);
+        $this->assertEquals($tarjeta->restarSaldo("153"), false);
     }
 
     /*
@@ -77,14 +77,14 @@ class TarjetaTest extends TestCase
         $tarjeta = new Tarjeta(0, $tiempo);
 
         $this->assertTrue($tarjeta->recargar(20));
-        $this->assertEquals($tarjeta->restarSaldo(), true);
-        $this->assertEquals($tarjeta->restarSaldo(), true);
+        $this->assertEquals($tarjeta->restarSaldo("153"), true);
+        $this->assertEquals($tarjeta->restarSaldo("153"), true);
         $this->assertEquals($tarjeta->obtenerSaldo(), 5.2);
         $this->assertTrue($tarjeta->recargar(10));
         $this->assertEquals($tarjeta->obtenerSaldo(), 0.4);
-        $this->assertEquals($tarjeta->restarSaldo(), true);
-        $this->assertEquals($tarjeta->restarSaldo(), true);
+        $this->assertEquals($tarjeta->restarSaldo("153"), true);
+        $this->assertEquals($tarjeta->restarSaldo("153"), true);
         $this->assertEquals($tarjeta->obtenerSaldo(), 0.4);
-        $this->assertEquals($tarjeta->restarSaldo(), false);
+        $this->assertEquals($tarjeta->restarSaldo("153"), false);
     }
 }

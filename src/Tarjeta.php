@@ -15,6 +15,8 @@ class Tarjeta implements TarjetaInterface
 
     protected $UltimaHora = 0;
 
+    protected $UltimoColectivo;
+
     protected $pagoplus = 0;
 
     protected $id;
@@ -99,27 +101,30 @@ class Tarjeta implements TarjetaInterface
     /*
     Resta saldo a la tarjeta
      */
-    public function restarSaldo()
+    public function restarSaldo($linea)
     {
-        $ValorARestar = $this->CalculaValor(); //Calcula el valor de el boleto
+        $ValorARestar = $this->CalculaValor($linea); //Calcula el valor de el boleto
         if ($this->saldo >= $ValorARestar) { // Si hay saldo
             $this->saldo -= $ValorARestar; //Se le resta
             $this->UltimoValorPagado = $ValorARestar; //Se guarda cuento pago
+            $this->UltimoColectivo = $linea;
             $this->UltimaHora = $this->tiempo->time(); //Se guarda la hora de la transaccion
             return true; //Se finaliza la funcion
         }
         if ($this->plus < 2) { //Si tiene plus disponibles
             $this->plus++; // Se le resta
             $this->UltimoValorPagado = 0.0; //Se indica que se pago 0.0
+            $this->UltimoColectivo = $linea;
             $this->UltimaHora = $this->tiempo->time(); //Se almacena la hora de la transaccion
             return true; // Se finaliza
         }
         return false; // No fue posible pagar
     }
 
-    public function CalculaValor()
+    public function CalculaValor($linea)
     {
-        return $this->ValorBoleto; // Para tarjeta devuelve el valor del boleto
+        if ($this->UltimoColectivo == $linea || $this->UltimoValorPagado == 0.0) {return $this->ValorBoleto;}
+        return ($this->ValorBoleto * 1.33); // Para tarjeta devuelve el valor del boleto
     }
 
     // Setea a 0 el "pago plus". Esta funcion se ejecutara cuando se emite el boleto

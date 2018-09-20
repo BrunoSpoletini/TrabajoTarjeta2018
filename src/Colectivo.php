@@ -59,7 +59,7 @@ class Colectivo implements ColectivoInterface
      */
     public function pagarCon(TarjetaInterface $tarjeta)
     {
-        if (!($tarjeta->restarSaldo())) {
+        if (!($tarjeta->restarSaldo($this->linea))) {
             return false;
         }
         return (new Boleto($this, $tarjeta));
