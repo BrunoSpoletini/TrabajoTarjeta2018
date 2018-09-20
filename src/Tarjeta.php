@@ -19,6 +19,8 @@ class Tarjeta implements TarjetaInterface
 
     protected $pagoplus = 0;
 
+    protected $Ultimotrasbordo = 1;
+
     protected $id;
 
     public function __construct($id, TiempoInterface $tiempo)
@@ -126,15 +128,46 @@ class Tarjeta implements TarjetaInterface
         return ($this->Trasbordo($linea,$this->ValorBoleto));
     }
 
-    public function Trasbordo($linea,$ValorBoleto){
-        if ($this->UltimoColectivo == $linea || $this->UltimoValorPagado == 0.0) {return $ValorBoleto;}
-        if((date('N',$this->tiempo)<5 && date('G',$this->tiempo)>6 && date('G',$this->tiempo)<22) || (date('N',$this->tiempo)==5 && date('G',$this->tiempo)>6 && date('G',$this->tiempo)<14))){
-            if(...){...}
+    protected function Trasbordo($linea,$ValorBoleto){
+        if ($this->UltimoColectivo == $linea || $this->UltimoValorPagado == 0.0 || $this->Ultimotrasbordo) {
+            $this->Ultimotrasbordo = 0;
+            return $ValorBoleto;
+        }
+        if(((date('N',$this->tiempo->time())<5 && date('G',$this->tiempo->time())>6 && date('G',$this->tiempo->time())<22) || (date('N',$this->tiempo->time())==5 && date('G',$this->tiempo->time())>6 && date('G',$this->tiempo->time())<14)) && (!$this->Feriado())){
+            if(($this->tiempo->time() - $this->UltimaHora) < 3600){
+                $this->Ultimotrasbordo = 1;
+                return ($ValorBoleto*1.35);
+            }
         }
         else{
-
+            if(($this->tiempo->time() - $this->UltimaHora) < 5400){
+                $this->Ultimotrasbordo = 1;
+                return ($ValorBoleto*1.35);
+            }
         }
-        return ($ValorBoleto * 1.33);
+        $this->Ultimotrasbordo = 0;
+        return $ValorBoleto;
+    }
+
+    protected function Feriado(){
+        $fecha = date('d-m',$this->tiempo->time());
+        $feriados        = array( 
+            '1-1',  //  Año Nuevo
+            '24-3',  //  Día Nacional de la Memoria por la Verdad y la Justicia.
+            '2-4',  //  Día del Veterano y de los Caídos en la Guerra de Malvinas.
+            '1-5',  //  Día del trabajador.
+            '25-5',  //  Día de la Revolución de Mayo. 
+            '17-6',  //  Día Paso a la Inmortalidad del General Martín Miguel de Güemes.
+            '20-6',  //  Día Paso a la Inmortalidad del General Manuel Belgrano. F
+            '9-7',  //  Día de la Independencia.
+            '17-8',  //  Paso a la Inmortalidad del Gral. José de San Martín
+            '12-10',  //  Día del Respeto a la Diversidad Cultural 
+            '20-11',  //  Día de la Soberanía Nacional
+            '8-12',  //  Inmaculada Concepción de María
+            '25-12',  //  Navidad
+            );
+
+        return in_array($fecha,$feriados);
     }
 
     // Setea a 0 el "pago plus". Esta funcion se ejecutara cuando se emite el boleto
