@@ -106,13 +106,25 @@ class Boleto implements BoletoInterface
     {
         $StringAuxiliar;
         if($this->valor==0.0){
-            if($this->Tipo=="TrabajoTarjeta\Completo") $StringAuxiliar = "Completo 0.0";
+            if($this->Tipo=="TrabajoTarjeta\Completo") return "Completo 0.0";
             else{
                 if($this->usoPlus==1) $StringAuxiliar ="ViajePlus 0.0"; else $StringAuxiliar ="UltimoPlus 0.0";
             }
         } else {
-            if($this->valor == ($this->boletoCompleto/2)) $StringAuxiliar ="Medio " . ($this->valor);
-            else $StringAuxiliar ="Normal " . ($this->valor);
+            switch($this->valor){
+                case ($this->boletoCompleto/2):
+                    $StringAuxiliar ="Medio " . ($this->valor);
+                    break;
+                case (($this->boletoCompleto/2)*0.33):
+                    $StringAuxiliar ="Trasbordo Medio " . ($this->valor);
+                    break;
+                case ($this->boletoCompleto*0.33):
+                    $StringAuxiliar ="Trasbordo Normal " . ($this->valor);
+                    break;
+                case ($this->boletoCompleto):
+                    $StringAuxiliar ="Normal " . ($this->valor);
+                    break;
+            }
         }
         if($this->cantplus!=0){
             return $this->PagoPlus . $StringAuxiliar;
