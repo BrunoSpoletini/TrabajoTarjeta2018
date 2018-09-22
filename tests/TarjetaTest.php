@@ -89,7 +89,7 @@ class TarjetaTest extends TestCase
     }
 
     public function testTrasbordo60minDianormal(){
-        $tiempo = new TiempoFalso;
+        $tiempo = new TiempoFalso(0);
         $tarjeta = new Tarjeta(0, $tiempo);
         $tiempo->avanzar(28800);
         $tarjeta->recargar(100);
@@ -101,8 +101,8 @@ class TarjetaTest extends TestCase
         Pruebo pagar un trasbordo un dia feriado con 90 minutos de espera y el texto del boleto
         */
         $boleto = $colectivo1->pagarCon($tarjeta);
-        $this->assertEquals(date('N',$tiempo->time()), 4);
-        $this->assertEquals(date('G',$tiempo->time()), 9);
+        $this->assertEquals(date('N',$tiempo->time()), '4');
+        $this->assertEquals(date('G',$tiempo->time()), '8');
         $this->assertEquals(date('d-m',$tiempo->time()), "01-01");
         $this->assertEquals($boleto->obtenerFecha(), "01/01/1970 09:00:00");
         $this->assertEquals($tarjeta->obtenerSaldo(), 185.2);
