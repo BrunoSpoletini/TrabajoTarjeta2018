@@ -88,7 +88,7 @@ class TarjetaTest extends TestCase
         $this->assertEquals($tarjeta->restarSaldo("153"), false);
     }
 
-    public function testTrasbordo60minDianormal(){
+    public function testTrasbordo(){
         $tiempo = new TiempoFalso(0);
         $tarjeta = new Tarjeta(0, $tiempo);
         $tiempo->avanzar(28800);
