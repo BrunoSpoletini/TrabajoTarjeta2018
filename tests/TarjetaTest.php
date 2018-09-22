@@ -152,5 +152,39 @@ class TarjetaTest extends TestCase
         $this->assertEquals(date('N',$tiempo->time()), 5);
         $colectivo2->pagarCon($tarjeta);
         $this->assertEquals($tarjeta->obtenerSaldo(), 71.832);
+
+        /*
+        Prueba pagar trasbordo un sabado a la mañana despues de los 60 minutos
+        */
+        $tiempo->avanzar(64800);
+        $colectivo1->pagarCon($tarjeta);
+        $this->assertEquals($tarjeta->obtenerSaldo(), 57.032);
+        $tiempo->avanzar(4100);
+        $this->assertEquals(date('N',$tiempo->time()), 6);
+        $colectivo2->pagarCon($tarjeta);
+        $this->assertEquals($tarjeta->obtenerSaldo(), 42.232);
+
+        /*
+        Prueba pagar trasbordo un sabado a la mañana despues de los 60 minutos
+        */
+        $tiempo->avanzar(28800);
+        $colectivo1->pagarCon($tarjeta);
+        $this->assertEquals($tarjeta->obtenerSaldo(), 27.432);
+        $tiempo->avanzar(5200);
+        $this->assertEquals(date('N',$tiempo->time()), 6);
+        $colectivo2->pagarCon($tarjeta);
+        $this->assertEquals($tarjeta->obtenerSaldo(), 22.548);
+
+        /*
+        Prueba pagar trasbordo un domingo despues de los 60 minutos
+        */
+        $this->assertTrue($tarjeta->recargar(100));
+        $tiempo->avanzar(57600);
+        $colectivo1->pagarCon($tarjeta);
+        $this->assertEquals($tarjeta->obtenerSaldo(), 107.748);
+        $tiempo->avanzar(5200);
+        $this->assertEquals(date('N',$tiempo->time()), 7);
+        $colectivo2->pagarCon($tarjeta);
+        $this->assertEquals($tarjeta->obtenerSaldo(), 102.864);
     }
 }
