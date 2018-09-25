@@ -130,7 +130,7 @@ class MedioUniTest extends TestCase
         $this->assertEquals($boleto2->obtenerDescripcion(), "Trasbordo Medio 2.442");
         $this->assertEquals($tarjeta->obtenerSaldo(), 190.158);
 
-        $tiempo->avanzar(36100);
+        $tiempo->avanzar(38100);
         $colectivo1->pagarCon($tarjeta);
         $this->assertEquals(date('d-m',$tiempo->time()), "01-01");
         $this->assertEquals($tarjeta->obtenerSaldo(), 175.358);
