@@ -4,16 +4,15 @@ namespace TrabajoTarjeta;
 
 class Colectivo implements ColectivoInterface
 {
+    protected $linea; //La linea del colectivo
 
-    protected $linea;
+    protected $empresa; //La empresa
 
-    protected $empresa;
-
-    protected $numero;
+    protected $numero; //Numero de interno
 
     public function __construct($linea, $empresa, $numero)
     {
-        $this->linea = $linea;
+        $this->linea = $linea; //asignacion de los parametros
         $this->empresa = $empresa;
         $this->numero = $numero;
     }
@@ -59,11 +58,9 @@ class Colectivo implements ColectivoInterface
      */
     public function pagarCon(TarjetaInterface $tarjeta)
     {
-        if (!($tarjeta->restarSaldo($this->linea))) {
-            return false;
+        if (!($tarjeta->restarSaldo($this->linea))) { //Si la funcion para restar el saldo retorna false
+            return false; //Falla el pago
         }
-        return (new Boleto($this, $tarjeta));
-
+        return (new Boleto($this, $tarjeta)); //Crea un boleto con la informacion
     }
-
 }
