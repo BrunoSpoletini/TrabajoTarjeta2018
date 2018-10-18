@@ -25,21 +25,22 @@ class Boleto implements BoletoInterface
 
     protected $descripcion; //Descripcion del boleto plus
 
-    protected $Tipo; //Tipo de tarjeta que se utilizo
+        protected $Tipo; //Tipo de tarjeta que se utilizo
 
-    protected $usoPlus; //Si se utilizaron plus
+            protected $usoPlus; //Si se utilizaron plus
+    
+        protected $PagoPlus;
 
     public function __construct($colectivo, $tarjeta) //Se asignan todos los valores ya declarados
-
-    {
+                    {
         $this->valor = ($tarjeta->ValorPagado());
-        $this->colectivo = $colectivo;
-        $this->tarjeta = $tarjeta;
+            $this->colectivo = $colectivo;
+       $this->tarjeta = $tarjeta;
         $this->usoPlus = $tarjeta->usoPlus();
-        $this->cantplus = $tarjeta->obtenerPagoPlus();
-        $this->hora = date("d/m/Y H:i:s", $tarjeta->UltimaHoraUsada());
+          $this->cantplus = $tarjeta->obtenerPagoPlus();
+     $this->hora = date("d/m/Y H:i:s", $tarjeta->UltimaHoraUsada());
         $this->idtarjeta = $tarjeta->obtenerId();
-        $this->boletoCompleto = $tarjeta->boletoCompleto();
+            $this->boletoCompleto = $tarjeta->boletoCompleto();
         $this->linea = $colectivo->linea();
         $this->saldo = $tarjeta->obtenerSaldo();
         $this->PagoPlus = "Abona viajes plus " . $this->cantplus * $tarjeta->boletoCompleto() . " y ";
