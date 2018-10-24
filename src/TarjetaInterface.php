@@ -22,6 +22,6 @@ interface TarjetaInterface {
      */
     public function obtenerSaldo();
 
-    public function restarSaldo();
+    public function restarSaldo($linea);
 
 }
