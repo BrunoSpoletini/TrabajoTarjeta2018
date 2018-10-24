@@ -10,7 +10,7 @@ class Tiempo implements TiempoInterface
         return time();
     }
 
-    public function Feriado(){
+    public function esFeriado(){
         $fecha = date('d-m-y',$this->time());
         $feriados        = array(
             '19-11-18',

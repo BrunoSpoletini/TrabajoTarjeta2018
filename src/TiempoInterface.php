@@ -7,6 +7,6 @@ interface TiempoInterface
 
     public function time();
 
-    public function Feriado();
+    public function esFeriado();
 
 }

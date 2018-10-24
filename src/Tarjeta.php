@@ -66,12 +66,12 @@ class Tarjeta implements TarjetaInterface
                 //Devuelve false si el monto ingresado no es válido
                 return false;
         }
-        $this->PagarPlus(); //Ejecuta la funcion parta pagar plus en caso de que los deba
+        $this->pagarPlus(); //Ejecuta la funcion parta pagar plus en caso de que los deba
         // Devuelve true si el monto ingresado es válido
         return true;
     }
 
-    protected function PagarPlus()
+    protected function pagarPlus()
     {
         if ($this->plus == 2) { //Si debe 2 plus
             if ($this->saldo >= ($this->ValorBoleto * 2)) { //Y si le alcanza el saldo para pagarlos
@@ -107,7 +107,7 @@ class Tarjeta implements TarjetaInterface
      */
     public function restarSaldo($linea)
     {
-        $ValorARestar = $this->CalculaValor($linea); //Calcula el valor de el boleto
+        $ValorARestar = $this->calculaValor($linea); //Calcula el valor de el boleto
         if ($this->saldo >= $ValorARestar) { // Si hay saldo
             $this->saldo -= $ValorARestar; //Se le resta
             $this->UltimoValorPagado = $ValorARestar; //Se guarda cuento pago
@@ -125,18 +125,18 @@ class Tarjeta implements TarjetaInterface
         return false; // No fue posible pagar
     }
 
-    public function CalculaValor($linea)
+    public function calculaValor($linea)
     {
-        return ($this->Trasbordo($linea, $this->ValorBoleto));
+        return ($this->puedeTrasbordo($linea, $this->ValorBoleto));
     }
 
-    protected function Trasbordo($linea, $ValorBoleto)
+    protected function puedeTrasbordo($linea, $ValorBoleto)
     {
         if ($this->UltimoColectivo == $linea || $this->UltimoValorPagado == 0.0 || $this->Ultimotrasbordo) {
             $this->Ultimotrasbordo = 0;
             return $ValorBoleto;
         }
-        if (((date('N', $this->tiempo->time()) <= 5 && date('G', $this->tiempo->time()) > 6 && date('G', $this->tiempo->time()) < 22) || (date('N', $this->tiempo->time()) == 6 && date('G', $this->tiempo->time()) > 6 && date('G', $this->tiempo->time()) < 14)) && (!$this->tiempo->Feriado())) {
+        if (((date('N', $this->tiempo->time()) <= 5 && date('G', $this->tiempo->time()) > 6 && date('G', $this->tiempo->time()) < 22) || (date('N', $this->tiempo->time()) == 6 && date('G', $this->tiempo->time()) > 6 && date('G', $this->tiempo->time()) < 14)) && (!$this->tiempo->esFeriado())) {
             if (($this->tiempo->time() - $this->UltimaHora) < 3600) {
                 $this->Ultimotrasbordo = 1;
                 return ($ValorBoleto * 0.33);
@@ -169,12 +169,12 @@ class Tarjeta implements TarjetaInterface
         return $this->id; //Devuelve el id de la tarjeta
     }
 
-    public function ValorPagado()
+    public function valorPagado()
     {
         return $this->UltimoValorPagado; // Devuelve el ultimo valor que se pago
     }
 
-    public function UltimaHoraUsada()
+    public function ultimaHoraUsada()
     {
         return $this->UltimaHora; // Devuelve la ultima hora a la que se pago
     }

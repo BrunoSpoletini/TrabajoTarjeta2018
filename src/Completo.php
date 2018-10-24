@@ -8,7 +8,7 @@ class Completo extends Tarjeta
 {
     protected $ValorBoleto = 0; //El boleto vale 0
 
-    public function CalculaValor($linea)
+    public function calculaValor($linea)
     {
         return $this->ValorBoleto; //Devuelve el valor ya almacenado
     }

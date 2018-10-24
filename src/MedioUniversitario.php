@@ -6,7 +6,7 @@ class MedioUniversitario extends Medio
 
     protected $DisponiblesDiarios = 0; //Variable que indica la disponibilidad de medios diarios
 
-    public function CalculaValor($linea)
+    public function calculaValor($linea)
     {
         $BoletoTemporal = 0;
         $UltimaFecha = date("d/m/y", $this->UltimaHora); //Guarda Cuando fue la ultima utilizacion del boleto
@@ -17,6 +17,6 @@ class MedioUniversitario extends Medio
             $BoletoTemporal = (($this->ValorBoleto) / 2); //Y devualve la mitad del valor
         } else {$BoletoTemporal = $this->ValorBoleto;} // Devuelve el valor entero
 
-        return ($this->Trasbordo($linea,$BoletoTemporal));
+        return ($this->puedeTrasbordo($linea,$BoletoTemporal));
     }
 }

@@ -12,7 +12,7 @@ class Medio extends Tarjeta
     public function restarSaldo($linea)
     {
         if (($this->tiempo->time() - $this->UltimaHora) < 299) {return false;} //Limitacion de 5 minutos
-        $ValorARestar = $this->CalculaValor($linea); //Llama a la funcion que calcula el valor del boleto a pagar
+        $ValorARestar = $this->calculaValor($linea); //Llama a la funcion que calcula el valor del boleto a pagar
         if ($this->saldo >= $ValorARestar) { //Se fija si le alcanza el saldo
             $this->saldo -= $ValorARestar; //En caso de alcanzar lo resta
             $this->UltimoValorPagado = $ValorARestar; //Guarda el valor del ultimo pago que se realizo
@@ -30,8 +30,8 @@ class Medio extends Tarjeta
         return false; //No Se pudo pagar
     }
 
-    public function CalculaValor($linea)
+    public function calculaValor($linea)
     {
-        return ($this->Trasbordo($linea,($this->ValorBoleto/2)));
+        return ($this->puedeTrasbordo($linea,($this->ValorBoleto/2)));
     }
 }

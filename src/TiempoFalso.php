@@ -18,7 +18,7 @@ class TiempoFalso implements TiempoInterface
         return $this->tiempo;
     }
 
-    public function Feriado(){
+    public function esFeriado(){
         $fecha = date('d-m',$this->tiempo);
         $feriados        = array( 
             '01-01',  //  Año Nuevo

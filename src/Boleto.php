@@ -33,12 +33,12 @@ class Boleto implements BoletoInterface
 
     public function __construct($colectivo, $tarjeta)
     {
-        $this->valor = ($tarjeta->ValorPagado());
+        $this->valor = ($tarjeta->valorPagado());
         $this->colectivo = $colectivo;
         $this->tarjeta = $tarjeta;
         $this->usoPlus = $tarjeta->usoPlus();
         $this->cantplus = $tarjeta->obtenerPagoPlus();
-        $this->hora = date("d/m/Y H:i:s", $tarjeta->UltimaHoraUsada());
+        $this->hora = date("d/m/Y H:i:s", $tarjeta->ultimaHoraUsada());
         $this->idtarjeta = $tarjeta->obtenerId();
         $this->boletoCompleto = $tarjeta->boletoCompleto();
         $this->linea = $colectivo->linea();
