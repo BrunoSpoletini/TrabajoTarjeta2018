@@ -241,7 +241,7 @@ class BoletoTest extends TestCase
         $tarjeta = new Tarjeta(0, $tiempo);
         $tarjeta->recargar(20);
         $tiempo->avanzar(250);
-        $boleto = $colectivo->pagarCon($tarjeta);
+        $colectivo->pagarCon($tarjeta);
         $boleto = $colectivo->pagarCon($tarjeta);
         $this->assertEquals($boleto->obtenerColectivo(), $colectivo);
 

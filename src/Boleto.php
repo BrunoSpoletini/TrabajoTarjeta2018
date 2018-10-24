@@ -25,22 +25,22 @@ class Boleto implements BoletoInterface
 
     protected $descripcion; //Descripcion del boleto plus
 
-        protected $Tipo; //Tipo de tarjeta que se utilizo
+    protected $Tipo; //Tipo de tarjeta que se utilizo
 
-            protected $usoPlus; //Si se utilizaron plus
-    
-        protected $PagoPlus;
+    protected $usoPlus; //Si se utilizaron plus
 
-    public function __construct($colectivo, $tarjeta) //Se asignan todos los valores ya declarados
-                    {
+    protected $PagoPlus;
+
+    public function __construct($colectivo, $tarjeta)
+    {
         $this->valor = ($tarjeta->ValorPagado());
-            $this->colectivo = $colectivo;
-       $this->tarjeta = $tarjeta;
+        $this->colectivo = $colectivo;
+        $this->tarjeta = $tarjeta;
         $this->usoPlus = $tarjeta->usoPlus();
-          $this->cantplus = $tarjeta->obtenerPagoPlus();
-     $this->hora = date("d/m/Y H:i:s", $tarjeta->UltimaHoraUsada());
+        $this->cantplus = $tarjeta->obtenerPagoPlus();
+        $this->hora = date("d/m/Y H:i:s", $tarjeta->UltimaHoraUsada());
         $this->idtarjeta = $tarjeta->obtenerId();
-            $this->boletoCompleto = $tarjeta->boletoCompleto();
+        $this->boletoCompleto = $tarjeta->boletoCompleto();
         $this->linea = $colectivo->linea();
         $this->saldo = $tarjeta->obtenerSaldo();
         $this->PagoPlus = "Abona viajes plus " . $this->cantplus * $tarjeta->boletoCompleto() . " y ";
@@ -145,7 +145,7 @@ class Boleto implements BoletoInterface
      */
     public function obtenerDescripcion()
     {
-        $StringAuxiliar; //definimos una variable auxiliar para poder armarla
+        $StringAuxiliar = ""; //definimos una variable auxiliar para poder armarla
         if ($this->valor == 0.0) { //si pago 0.0
             if ($this->Tipo == "TrabajoTarjeta\Completo") { //Y la tarjeta es tipo completo, devolvemos que el pago un boleto de tipo completo
                 return "Completo 0.0";

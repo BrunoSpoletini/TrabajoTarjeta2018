@@ -189,7 +189,7 @@ class TarjetaTest extends TestCase
     }
 
     public function testTrasbordo2(){
-        $tiempo = new Tiempo(0);
+        $tiempo = new Tiempo();
         $tarjeta = new Tarjeta(0, $tiempo);
         $tarjeta->recargar(100);
         $tarjeta->recargar(100);

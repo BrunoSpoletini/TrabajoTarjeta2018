@@ -123,7 +123,7 @@ class MedioUniTest extends TestCase
         /*
         Pruebo pagar un trasbordo un dia feriado con 90 minutos de espera y el texto del boleto
         */
-        $boleto = $colectivo1->pagarCon($tarjeta);
+        $colectivo1->pagarCon($tarjeta);
         $this->assertEquals($tarjeta->obtenerSaldo(), 192.6);
         $tiempo->avanzar(4200);
         $boleto2 = $colectivo2->pagarCon($tarjeta);
