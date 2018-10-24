@@ -23,6 +23,8 @@ class Tarjeta implements TarjetaInterface
 
     protected $id;
 
+    protected $tiempo;
+
     public function __construct($id, TiempoInterface $tiempo)
     {
         $this->id = $id; //Guarda el ID
@@ -125,24 +127,24 @@ class Tarjeta implements TarjetaInterface
 
     public function CalculaValor($linea)
     {
-        return ($this->Trasbordo($linea,$this->ValorBoleto));
+        return ($this->Trasbordo($linea, $this->ValorBoleto));
     }
 
-    protected function Trasbordo($linea,$ValorBoleto){
+    protected function Trasbordo($linea, $ValorBoleto)
+    {
         if ($this->UltimoColectivo == $linea || $this->UltimoValorPagado == 0.0 || $this->Ultimotrasbordo) {
             $this->Ultimotrasbordo = 0;
             return $ValorBoleto;
         }
-        if(((date('N',$this->tiempo->time())<=5 && date('G',$this->tiempo->time())>6 && date('G',$this->tiempo->time())<22) || (date('N',$this->tiempo->time())==6 && date('G',$this->tiempo->time())>6 && date('G',$this->tiempo->time())<14)) && (!$this->tiempo->Feriado())){
-            if(($this->tiempo->time() - $this->UltimaHora) < 3600){
+        if (((date('N', $this->tiempo->time()) <= 5 && date('G', $this->tiempo->time()) > 6 && date('G', $this->tiempo->time()) < 22) || (date('N', $this->tiempo->time()) == 6 && date('G', $this->tiempo->time()) > 6 && date('G', $this->tiempo->time()) < 14)) && (!$this->tiempo->Feriado())) {
+            if (($this->tiempo->time() - $this->UltimaHora) < 3600) {
                 $this->Ultimotrasbordo = 1;
-                return ($ValorBoleto*0.33);
+                return ($ValorBoleto * 0.33);
             }
-        }
-        else{
-            if(($this->tiempo->time() - $this->UltimaHora) < 5400){
+        } else {
+            if (($this->tiempo->time() - $this->UltimaHora) < 5400) {
                 $this->Ultimotrasbordo = 1;
-                return ($ValorBoleto*0.33);
+                return ($ValorBoleto * 0.33);
             }
         }
         $this->Ultimotrasbordo = 0;

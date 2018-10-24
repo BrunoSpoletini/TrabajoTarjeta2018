@@ -11,7 +11,7 @@ class Tiempo implements TiempoInterface
     }
 
     public function Feriado(){
-        $fecha = date('d-m-y',$this->tiempo->time());
+        $fecha = date('d-m-y',$this->time());
         $feriados        = array(
             '19-11-18',
             '08-12-18',
