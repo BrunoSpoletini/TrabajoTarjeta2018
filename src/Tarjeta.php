@@ -133,7 +133,7 @@ class Tarjeta implements TarjetaInterface
             $this->Ultimotrasbordo = 0;
             return $ValorBoleto;
         }
-        if(((date('N',$this->tiempo->time())<=5 && date('G',$this->tiempo->time())>6 && date('G',$this->tiempo->time())<22) || (date('N',$this->tiempo->time())==6 && date('G',$this->tiempo->time())>6 && date('G',$this->tiempo->time())<14)) && (!$this->Feriado())){
+        if(((date('N',$this->tiempo->time())<=5 && date('G',$this->tiempo->time())>6 && date('G',$this->tiempo->time())<22) || (date('N',$this->tiempo->time())==6 && date('G',$this->tiempo->time())>6 && date('G',$this->tiempo->time())<14)) && (!$this->tiempo->Feriado())){
             if(($this->tiempo->time() - $this->UltimaHora) < 3600){
                 $this->Ultimotrasbordo = 1;
                 return ($ValorBoleto*0.33);
@@ -147,27 +147,6 @@ class Tarjeta implements TarjetaInterface
         }
         $this->Ultimotrasbordo = 0;
         return $ValorBoleto;
-    }
-
-    protected function Feriado(){
-        $fecha = date('d-m',$this->tiempo->time());
-        $feriados        = array( 
-            '01-01',  //  Año Nuevo
-            '24-03',  //  Día Nacional de la Memoria por la Verdad y la Justicia.
-            '02-04',  //  Día del Veterano y de los Caídos en la Guerra de Malvinas.
-            '01-05',  //  Día del trabajador.
-            '25-05',  //  Día de la Revolución de Mayo. 
-            '17-06',  //  Día Paso a la Inmortalidad del General Martín Miguel de Güemes.
-            '20-06',  //  Día Paso a la Inmortalidad del General Manuel Belgrano. F
-            '09-07',  //  Día de la Independencia.
-            '17-08',  //  Paso a la Inmortalidad del Gral. José de San Martín
-            '12-10',  //  Día del Respeto a la Diversidad Cultural 
-            '20-11',  //  Día de la Soberanía Nacional
-            '08-12',  //  Inmaculada Concepción de María
-            '25-12',  //  Navidad
-            );
-
-        return in_array($fecha,$feriados);
     }
 
     // Setea a 0 el "pago plus". Esta funcion se ejecutara cuando se emite el boleto
