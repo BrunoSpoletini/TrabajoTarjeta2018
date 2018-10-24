@@ -5,7 +5,6 @@
 
 [![Coverage Status](https://coveralls.io/repos/github/BrunoSpoletini/TrabajoTarjeta2018/badge.svg?branch=master)](https://coveralls.io/github/BrunoSpoletini/TrabajoTarjeta2018?branch=master)
 
-### Scrutinizer
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/BrunoSpoletini/TrabajoTarjeta2018/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/BrunoSpoletini/TrabajoTarjeta2018/?branch=master)
 
 Integrantes: Spoletini Bruno, Cerruti Lautaro
