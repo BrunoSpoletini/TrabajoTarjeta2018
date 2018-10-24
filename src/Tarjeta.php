@@ -136,7 +136,7 @@ class Tarjeta implements TarjetaInterface
             $this->Ultimotrasbordo = 0;
             return $ValorBoleto;
         }
-        if (((date('N', $this->tiempo->time()) <= 5 && date('G', $this->tiempo->time()) > 6 && date('G', $this->tiempo->time()) < 22) || (date('N', $this->tiempo->time()) == 6 && date('G', $this->tiempo->time()) > 6 && date('G', $this->tiempo->time()) < 14)) && (!$this->tiempo->esFeriado())) {
+        if ($this->dependeHora()) {
             if (($this->tiempo->time() - $this->UltimaHora) < 3600) {
                 $this->Ultimotrasbordo = 1;
                 return ($ValorBoleto * 0.33);
@@ -149,6 +149,10 @@ class Tarjeta implements TarjetaInterface
         }
         $this->Ultimotrasbordo = 0;
         return $ValorBoleto;
+    }
+
+    protected function dependeHora(){
+        return ((date('N', $this->tiempo->time()) <= 5 && date('G', $this->tiempo->time()) > 6 && date('G', $this->tiempo->time()) < 22) || (date('N', $this->tiempo->time()) == 6 && date('G', $this->tiempo->time()) > 6 && date('G', $this->tiempo->time()) < 14)) && (!$this->tiempo->esFeriado());
     }
 
     // Setea a 0 el "pago plus". Esta funcion se ejecutara cuando se emite el boleto
