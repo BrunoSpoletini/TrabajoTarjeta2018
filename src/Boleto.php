@@ -98,7 +98,7 @@ class Boleto implements BoletoInterface
     }
 
     /**
-     * Devuelve un objeto que respresenta el toal abonado.
+     * Devuelve un objeto que respresenta el total abonado.
      *
      * @return Int
      */

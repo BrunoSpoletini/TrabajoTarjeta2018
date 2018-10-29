@@ -31,12 +31,17 @@ class Tarjeta implements TarjetaInterface
         $this->tiempo = $tiempo; //Guarda la variable tiempo la cual le es inyectada
     }
 
-    /*/
-    Funcion para recargar la tarjeta
-    Las cargas aceptadas de tarjetas son: (10, 20, 30, 50, 100, 510,15 y 962,59)
-    Cuando se cargan $510,15 se acreditan de forma adicional: 81,93
-    Cuando se cargan $962,59 se acreditan de forma adicional: 221,58
-    /*/
+    /**
+     * Funcion para recargar la tarjeta.
+     *
+     * @param float $monto
+     *   Las cargas aceptadas de tarjetas son: (10, 20, 30, 50, 100, 510,15 y 962,59)
+     *   Cuando se cargan $510,15 se acreditan de forma adicional: 81,93
+     *   Cuando se cargan $962,59 se acreditan de forma adicional: 221,58
+     *
+     * @return bool
+     *   Si fue posible realizar la carga.
+     */
     public function recargar($monto)
     {
 
@@ -71,6 +76,9 @@ class Tarjeta implements TarjetaInterface
         return true;
     }
 
+    /**
+     * Funcion para pagar plus en caso de deberlos.
+     */
     protected function pagarPlus()
     {
         if ($this->plus == 2) { //Si debe 2 plus
@@ -102,15 +110,21 @@ class Tarjeta implements TarjetaInterface
         return $this->saldo;
     }
 
-    /*
-    Resta saldo a la tarjeta
+    /**
+     * Resta un boleto a la tarjeta.
+     *
+     * @param string $linea
+     *   La linea de colectivo en la que se esta pagando, se utiliza para ver si hizo trasbordo.
+     *
+     * @return bool
+     *   Si fue posible realizar el pago.
      */
     public function restarSaldo($linea)
     {
         $ValorARestar = $this->calculaValor($linea); //Calcula el valor de el boleto
         if ($this->saldo >= $ValorARestar) { // Si hay saldo
             $this->saldo -= $ValorARestar; //Se le resta
-            $this->UltimoValorPagado = $ValorARestar; //Se guarda cuento pago
+            $this->UltimoValorPagado = $ValorARestar; //Se guarda cuanto pago
             $this->UltimoColectivo = $linea;
             $this->UltimaHora = $this->tiempo->time(); //Se guarda la hora de la transaccion
             return true; //Se finaliza la funcion
@@ -125,11 +139,32 @@ class Tarjeta implements TarjetaInterface
         return false; // No fue posible pagar
     }
 
+    /**
+     * Para el caso de la tarjeta ejecuta una funcion que se fija si puede hacer trasbordo.
+     *
+     * @param string $linea
+     *   La linea de colectivo en la que se esta pagando, se utiliza para ver si hizo trasbordo.
+     *
+     * @return float
+     *   El valor del pasaje a pagar.
+     */
     public function calculaValor($linea)
     {
         return ($this->puedeTrasbordo($linea, $this->ValorBoleto));
     }
 
+    /**
+     * Funcion para ver si dispone del trasbordo.
+     *
+     * @param string $linea
+     *   La linea de colectivo en la que se esta pagando, se utiliza para ver si hizo trasbordo.
+     *
+     * @param float $ValorBoleto
+     *   El valor del boleto al que se realiza un 33%.
+     *
+     * @return bool
+     *   Si fue posible realizar la carga.
+     */
     protected function puedeTrasbordo($linea, $ValorBoleto)
     {
         if ($this->UltimoColectivo == $linea || $this->UltimoValorPagado == 0.0 || $this->Ultimotrasbordo) {
@@ -151,11 +186,23 @@ class Tarjeta implements TarjetaInterface
         return $ValorBoleto;
     }
 
-    protected function dependeHora(){
+    /**
+     * Dependiendo de la hora y el dia que sea puede haber un maximo de tiempo de 60 o 90 minutos.
+     *
+     * @return bool
+     *   True si son 60 o false si son 90.
+     */
+    protected function dependeHora()
+    {
         return ((date('N', $this->tiempo->time()) <= 5 && date('G', $this->tiempo->time()) > 6 && date('G', $this->tiempo->time()) < 22) || (date('N', $this->tiempo->time()) == 6 && date('G', $this->tiempo->time()) > 6 && date('G', $this->tiempo->time()) < 14)) && (!$this->tiempo->esFeriado());
     }
 
-    // Setea a 0 el "pago plus". Esta funcion se ejecutara cuando se emite el boleto
+    /**
+     * Setea a 0 el "pago plus". Esta funcion se ejecutara cuando se emite el boleto.
+     *
+     * @return int
+     *   La cantidad de plus que pago en la ultiima recarga.
+     */
     public function obtenerPagoPlus()
     {
         $pagoplusaux = $this->pagoplus; // Se almacena en un auxiliar
@@ -163,26 +210,51 @@ class Tarjeta implements TarjetaInterface
         return $pagoplusaux; // Se devuelve el auxiliar
     }
 
+    /**
+     * Devuelve el valor completo del boleto.
+     *
+     * @return float
+     */
     public function boletoCompleto()
     {
         return $this->ValorBoleto; // Devuelve el valor de un boleto completo
     }
 
+    /**
+     * Devuelve el ID de la tarjeta.
+     *
+     * @return int
+     */
     public function obtenerId()
     {
         return $this->id; //Devuelve el id de la tarjeta
     }
 
+    /**
+     * Devuelve el ultimo valor pagado.
+     *
+     * @return float
+     */
     public function valorPagado()
     {
         return $this->UltimoValorPagado; // Devuelve el ultimo valor que se pago
     }
 
+    /**
+     * Devuelve la ultima hora en la que se uso la tarjeta.
+     *
+     * @return int
+     */
     public function ultimaHoraUsada()
     {
         return $this->UltimaHora; // Devuelve la ultima hora a la que se pago
     }
 
+    /**
+     * Devuelve si se utilizo un viaje plus.
+     *
+     * @return int
+     */
     public function usoPlus()
     {
         return $this->plus; // Devuelve si se utilizo un viaje plus

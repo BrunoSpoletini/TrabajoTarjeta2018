@@ -6,6 +6,15 @@ class MedioUniversitario extends Medio
 
     protected $DisponiblesDiarios = 0; //Variable que indica la disponibilidad de medios diarios
 
+    /**
+     * Devuelve el valor del boleto a pagar, pero antes se fija si puede hacer un trasbordo utilizando al otra funcion y si es uno de los 2 medios diarios que dispone.
+     *
+     * @param string $linea
+     *   La linea en la que esta intentando pagar.
+     *
+     * @return float
+     *   El valor del boleto a pagar.
+     */
     public function calculaValor($linea)
     {
         $BoletoTemporal = 0;

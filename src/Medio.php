@@ -9,6 +9,15 @@ class Medio extends Tarjeta
 
     protected $UltimaHora = -300; //Para poder usarlo apenas se compra
 
+    /**
+     * Resta el saldo a la tarjeta, pero con una limitacion de no poder pagar un boleto si pasaron menos de 5 minutos.
+     *
+     * @param string $linea
+     *   La linea en la que esta intentando pagar.
+     *
+     * @return bool
+     *   Si se pudo realizar el pago.
+     */
     public function restarSaldo($linea)
     {
         if (($this->tiempo->time() - $this->UltimaHora) < 299) {return false;} //Limitacion de 5 minutos
@@ -30,8 +39,17 @@ class Medio extends Tarjeta
         return false; //No Se pudo pagar
     }
 
+    /**
+     * Devuelve el valor del boleto a pagar, pero antes se fija si puede hacer un trasbordo utilizando al otra funcion.
+     *
+     * @param string $linea
+     *   La linea en la que esta intentando pagar.
+     *
+     * @return float
+     *   El valor del boleto a pagar.
+     */
     public function calculaValor($linea)
     {
-        return ($this->puedeTrasbordo($linea,($this->ValorBoleto/2)));
+        return ($this->puedeTrasbordo($linea, ($this->ValorBoleto / 2)));
     }
 }
