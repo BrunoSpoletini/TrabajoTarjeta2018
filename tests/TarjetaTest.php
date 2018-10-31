@@ -176,6 +176,7 @@ class TarjetaTest extends TestCase
     public function testTrasbordo2()
     {
         $tiempo = new Tiempo();
+        $this->AssertFalse($tiempo->esFeriado());
         $tarjeta = new Tarjeta(0, $tiempo);
         $tarjeta->recargar(100);
         $tarjeta->recargar(100);
