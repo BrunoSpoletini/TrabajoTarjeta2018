@@ -162,7 +162,7 @@ class Tarjeta implements TarjetaInterface
      * @param float $ValorBoleto
      *   El valor del boleto al que se realiza un 33%.
      *
-     * @return bool
+     * @return float
      *   Si fue posible realizar la carga.
      */
     protected function puedeTrasbordo($linea, $ValorBoleto)
@@ -194,19 +194,19 @@ class Tarjeta implements TarjetaInterface
      */
     protected function dependeHora()
     {
-        if($this->tiempo->esFeriado() || date('N', $this->tiempo->time()) == 7) return false;
-        if(date('N', $this->tiempo->time()) == 6){
-            if(date('G', $this->tiempo->time()) > 6 && date('G', $this->tiempo->time()) < 14){
+        if ($this->tiempo->esFeriado() || date('N', $this->tiempo->time()) == 7){
+            return false;
+        }
+        if (date('N', $this->tiempo->time()) == 6){
+            if (date('G', $this->tiempo->time()) > 6 && date('G', $this->tiempo->time()) < 14){
                 return true;
-            }
-            else{
+            } else {
                 return false;
             }
         } else {
-            if(date('G', $this->tiempo->time()) > 6 && date('G', $this->tiempo->time()) < 22){
+            if (date('G', $this->tiempo->time()) > 6 && date('G', $this->tiempo->time()) < 22){
                 return true;
-            }
-            else{
+            } else {
                 return false;
             }
         }
