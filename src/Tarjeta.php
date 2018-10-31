@@ -194,7 +194,22 @@ class Tarjeta implements TarjetaInterface
      */
     protected function dependeHora()
     {
-        return ((date('N', $this->tiempo->time()) <= 5 && date('G', $this->tiempo->time()) > 6 && date('G', $this->tiempo->time()) < 22) || (date('N', $this->tiempo->time()) == 6 && date('G', $this->tiempo->time()) > 6 && date('G', $this->tiempo->time()) < 14)) && (!$this->tiempo->esFeriado());
+        if($this->tiempo->esFeriado() || date('N', $this->tiempo->time()) == 7) return false;
+        if(date('N', $this->tiempo->time()) == 6){
+            if(date('G', $this->tiempo->time()) > 6 && date('G', $this->tiempo->time()) < 14){
+                return true;
+            }
+            else{
+                return false;
+            }
+        } else {
+            if(date('G', $this->tiempo->time()) > 6 && date('G', $this->tiempo->time()) < 22){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
     }
 
     /**
