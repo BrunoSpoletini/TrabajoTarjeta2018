@@ -7,7 +7,7 @@ interface TiempoInterface
 
     public function time();
     
-    public function agregarFeriado();
+    public function agregarFeriado($dia);
 
     public function esFeriado();
 
