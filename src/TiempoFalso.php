@@ -59,7 +59,7 @@ class TiempoFalso implements TiempoInterface
      *
      * @param string $dia
      */
-    public function AgregarFeriado($dia)
+    public function agregarFeriado($dia)
     {
         array_push($this->feriados, $dia);
     }
