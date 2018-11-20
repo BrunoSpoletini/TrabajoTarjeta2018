@@ -4,25 +4,7 @@ namespace TrabajoTarjeta;
 
 class Tiempo implements TiempoInterface
 {
-    /**
-     * Devuelve el tiempo real
-     *
-     * @return int
-     */
-    public function time()
-    {
-        return time();
-    }
-
-    /**
-     * Se fija si el dia en el que es ejecutada la funcion es feriado tienendo encuanta todos los feriados hasta el 2019
-     *
-     * @return bool
-     */
-    public function esFeriado()
-    {
-        $fecha = date('d-m-y', $this->time());
-        $feriados = array(
+    protected $feriados = array(
             '19-11-18',
             '08-12-18',
             '24-12-18',
@@ -47,7 +29,36 @@ class Tiempo implements TiempoInterface
             '18-11-19',
             '08-12-19',
         );
+    
+    /**
+     * Devuelve el tiempo real
+     *
+     * @return int
+     */
+    public function time()
+    {
+        return time();
+    }
 
-        return in_array($fecha, $feriados);
+    /**
+     * Agrega a la lista de feriados uno que se pase como parametro.
+     *
+     * @param string $dia
+     */
+    public function agregarFeriado($dia)
+    {
+        array_push($this->feriados, $dia);
+    }
+    
+    /**
+     * Se fija si el dia en el que es ejecutada la funcion es feriado tienendo encuanta todos los feriados hasta el 2019
+     *
+     * @return bool
+     */
+    public function esFeriado()
+    {
+        $fecha = date('d-m-y', $this->time());
+
+        return in_array($fecha, $this->feriados);
     }
 }
