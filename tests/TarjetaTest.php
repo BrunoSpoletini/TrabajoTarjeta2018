@@ -91,6 +91,7 @@ class TarjetaTest extends TestCase
     public function testTrasbordo()
     {
         $tiempo = new TiempoFalso(0);
+         $tiempo->agregarFeriado("01-06");
         $tarjeta = new Tarjeta(0, $tiempo);
         $tiempo->avanzar(28800);
         $tarjeta->recargar(100);
@@ -176,6 +177,7 @@ class TarjetaTest extends TestCase
     public function testTrasbordo2()
     {
         $tiempo = new Tiempo();
+         $tiempo->agregarFeriado("01-01-18");
         $this->AssertFalse($tiempo->esFeriado());
         $tarjeta = new Tarjeta(0, $tiempo);
         $tarjeta->recargar(100);
