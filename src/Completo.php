@@ -17,7 +17,7 @@ class Completo extends Tarjeta
      * @return int
      *   El valor del boleto.
      */
-    public function calculaValor($linea)
+    protected function calculaValor($linea)
     {
         return $this->ValorBoleto; //Devuelve el valor ya almacenado
     }

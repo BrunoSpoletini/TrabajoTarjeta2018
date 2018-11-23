@@ -148,7 +148,7 @@ class Tarjeta implements TarjetaInterface
      * @return float
      *   El valor del pasaje a pagar.
      */
-    public function calculaValor($linea)
+    protected function calculaValor($linea)
     {
         return ($this->puedeTrasbordo($linea, $this->ValorBoleto));
     }

@@ -2,7 +2,8 @@
 
 namespace TrabajoTarjeta;
 
-interface TarjetaInterface {
+interface TarjetaInterface
+{
 
     /**
      * Recarga una tarjeta con un cierto valor de dinero.
