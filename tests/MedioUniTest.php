@@ -110,6 +110,9 @@ class MedioUniTest extends TestCase
         $this->assertEquals($medio->obtenerSaldo(), 40.8);
     }
 
+    /*
+    Pruebo pagar un trasbordo un dia feriado con 90 minutos de espera y el texto del boleto
+     */
     public function testTrasbordoUni()
     {
         $tiempo = new TiempoFalso;
@@ -120,9 +123,6 @@ class MedioUniTest extends TestCase
         $colectivo1 = new Colectivo(122, "Semtur", 37);
         $colectivo2 = new Colectivo(134, "RosarioBus", 52);
 
-        /*
-        Pruebo pagar un trasbordo un dia feriado con 90 minutos de espera y el texto del boleto
-        */
         $colectivo1->pagarCon($tarjeta);
         $this->assertEquals($tarjeta->obtenerSaldo(), 192.6);
         $tiempo->avanzar(4200);
@@ -132,7 +132,7 @@ class MedioUniTest extends TestCase
 
         $tiempo->avanzar(38100);
         $colectivo1->pagarCon($tarjeta);
-        $this->assertEquals(date('d-m',$tiempo->time()), "01-01");
+        $this->assertEquals(date('d-m', $tiempo->time()), "01-01");
         $this->assertEquals($tarjeta->obtenerSaldo(), 175.358);
         $tiempo->avanzar(3500);
         $boleto2 = $colectivo2->pagarCon($tarjeta);

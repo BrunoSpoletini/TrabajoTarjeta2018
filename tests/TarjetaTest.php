@@ -88,10 +88,13 @@ class TarjetaTest extends TestCase
         $this->assertEquals($tarjeta->restarSaldo("153"), false);
     }
 
+    /*
+    Pruebo muchas cosas de trasbordo, con respecto al funcionamiento con el tiempo
+     */
     public function testTrasbordo()
     {
         $tiempo = new TiempoFalso(0);
-         $tiempo->agregarFeriado("01-06");
+        $tiempo->agregarFeriado("01-06");
         $tarjeta = new Tarjeta(0, $tiempo);
         $tiempo->avanzar(28800);
         $tarjeta->recargar(100);
@@ -174,19 +177,19 @@ class TarjetaTest extends TestCase
         $this->assertEquals($tarjeta->obtenerSaldo(), 102.864);
     }
 
+    /*
+    Pruebo pagar un trasbordo en distintos colectivos con tiempo normal
+     */
     public function testTrasbordo2()
     {
         $tiempo = new Tiempo();
-         $tiempo->agregarFeriado("01-01-18");
+        $tiempo->agregarFeriado("01-01-18");
         $this->AssertFalse($tiempo->esFeriado());
         $tarjeta = new Tarjeta(0, $tiempo);
         $tarjeta->recargar(100);
         $tarjeta->recargar(100);
         $colectivo1 = new Colectivo(122, "Semtur", 37);
         $colectivo2 = new Colectivo(134, "RosarioBus", 52);
-        /*
-        Pruebo pagar un trasbordo en distintos colectivos con tiempo normal
-         */
         $colectivo1->pagarCon($tarjeta);
         $this->assertEquals($tarjeta->obtenerSaldo(), 185.2);
         $colectivo2->pagarCon($tarjeta);
